@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 data = pd.read_csv("news_dataset.csv")
 X = data['text']
