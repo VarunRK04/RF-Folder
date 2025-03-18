@@ -21,8 +21,8 @@ def predict():
     
         # Corrected part: Make sure input is 2D
         news_vector = vectorizer.transform([news_text])  # Extract features from request
-            prediction = model.predict([np.array(data)])  # Make prediction
-            return jsonify({"prediction": prediction.tolist()})  # Send response
+        prediction = model.predict([np.array(data)])  # Make prediction
+        return jsonify({"prediction": prediction.tolist()})  # Send response
     except Exception as e:
         return jsonify({"error": str(e)})  # Handle errors
 
