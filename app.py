@@ -12,9 +12,17 @@ model = joblib.load("model.pkl")
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
-        data = request.json["features"]  # Extract features from request
-        prediction = model.predict([np.array(data)])  # Make prediction
-        return jsonify({"prediction": prediction.tolist()})  # Send response
+        data = request.get_json()
+    
+        if 'news_text' not in data:
+            return jsonify({'error': 'Missing key: news_text'}), 400
+    
+        news_text = data['news_text']
+    
+        # Corrected part: Make sure input is 2D
+        news_vector = vectorizer.transform([news_text])  # Extract features from request
+            prediction = model.predict([np.array(data)])  # Make prediction
+            return jsonify({"prediction": prediction.tolist()})  # Send response
     except Exception as e:
         return jsonify({"error": str(e)})  # Handle errors
 
