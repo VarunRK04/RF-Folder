@@ -18,7 +18,7 @@ def predict():
             return jsonify({'error': 'Missing key: news_text'}), 400
     
         news_text = data['news_text']
-        news_array = np.array([news_text]).reshape(1, -1)
+        news_array = np.array([news_text])
         prediction = model.predict(news_array)
         return jsonify({"prediction": prediction.tolist()})  # Send response
     except Exception as e:
