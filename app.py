@@ -1,7 +1,10 @@
 from flask import Flask, request, jsonify
 import joblib
 import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
 
+# Reinitialize the vectorizer with the same parameters used before
+vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1, 2))
 # Initialize Flask app
 app = Flask(__name__)
 
@@ -18,8 +21,8 @@ def predict():
             return jsonify({'error': 'Missing key: news_text'}), 400
     
         news_text = data['news_text']
-        news_array = np.array([news_text])
-        prediction = model.predict(news_array)
+        news_vector = vectorizer.transform([news_text])  # Convert text to numeric vector
+        prediction = model.predict(news_vector)
         return jsonify({"prediction": prediction.tolist()})  # Send response
     except Exception as e:
         return jsonify({"error": str(e)})  # Handle errors
