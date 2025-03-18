@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 data = pd.read_csv("news_dataset.csv")
+data.dropna(inplace=True)
 X = data['text']
 # Reinitialize the vectorizer with the same parameters used before
 vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1, 2))
