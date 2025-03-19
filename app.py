@@ -3,6 +3,8 @@ import joblib
 import numpy as np
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
+from flask_cors import CORS
+
 data = pd.read_csv("news_dataset.csv")
 data.dropna(inplace=True)
 X = data['text']
@@ -11,7 +13,7 @@ vectorizer = TfidfVectorizer(max_features=5000, ngram_range=(1, 2))
 vectorizer.fit(X)
 # Initialize Flask app
 app = Flask(__name__)
-
+CORS(app)
 # Load trained ML model
 model = joblib.load("model.pkl")
 
