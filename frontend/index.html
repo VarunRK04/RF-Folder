@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Truthlens — Fake News Detector</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <canvas id="bg"></canvas>
+
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">◈</span>
+        <div class="brand-text">
+          <h1>Truthlens</h1>
+          <p id="status" class="status status--unknown">checking API…</p>
+        </div>
+      </div>
+      <button id="clearBtn" class="ghost-btn" title="Clear conversation">Clear chat</button>
+    </header>
+
+    <main id="chat" class="chat"></main>
+
+    <div id="scrollHint" class="scroll-hint">↓ new messages</div>
+
+    <form id="composer" class="composer">
+      <textarea
+        id="input"
+        placeholder="Paste a news article or claim to check…"
+        rows="1"
+        maxlength="20000"
+      ></textarea>
+      <button type="submit" id="sendBtn" class="send-btn" title="Analyze (Enter)">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+      </button>
+    </form>
+  </div>
+
+  <template id="tpl-user">
+    <div class="msg msg--user">
+      <div class="bubble"></div>
+    </div>
+  </template>
+
+  <template id="tpl-bot">
+    <div class="msg msg--bot">
+      <div class="avatar">◈</div>
+      <div class="bubble">
+        <div class="verdict">
+          <span class="verdict-label"></span>
+          <span class="verdict-tag"></span>
+        </div>
+        <div class="confidence">
+          <div class="confidence-row">
+            <span>REAL</span>
+            <div class="bar"><div class="bar-fill bar-fill--real"></div></div>
+            <span class="pct pct-real"></span>
+          </div>
+          <div class="confidence-row">
+            <span>FAKE</span>
+            <div class="bar"><div class="bar-fill bar-fill--fake"></div></div>
+            <span class="pct pct-fake"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="tpl-error">
+    <div class="msg msg--bot">
+      <div class="avatar avatar--error">!</div>
+      <div class="bubble bubble--error"></div>
+    </div>
+  </template>
+
+  <template id="tpl-typing">
+    <div class="msg msg--bot">
+      <div class="avatar">◈</div>
+      <div class="bubble bubble--typing">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
